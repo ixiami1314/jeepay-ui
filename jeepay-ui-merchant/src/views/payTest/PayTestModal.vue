@@ -4,6 +4,7 @@
       <div style="width:100%;margin-bottom:20px;text-align:center">
         <img v-if="apiRes.payDataType == 'codeImgUrl'" :src="apiRes.payData" alt="">
         <span v-else-if="apiRes.payDataType == 'payurl'">等待用户支付 <hr> 如浏览器未正确跳转请点击： <a :href="apiRes.payData" target="_blank">支付地址</a><a-button size="small" class="copy-btn" v-clipboard:copy="apiRes.payData" v-clipboard:success="onCopy" >复制链接</a-button></span>
+        <div v-else-if="apiRes.payDataType == 'form'" v-html="apiRes.formContent"></div>
         <span v-else>等待用户支付,请稍后</span>
       </div>
       <p class="describe">

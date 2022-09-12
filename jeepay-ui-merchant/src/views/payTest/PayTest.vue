@@ -23,6 +23,11 @@
       <!-- 支付测试面板 v-if=""-->
       <div style="width: 100%;" class="paydemo" v-if="payTestShow()">
         <div class="paydemo-type-content">
+          <div class="paydemo-type-name article-title" v-show="showTitle('ALL_PC')" >欧付宝支付</div>
+          <div class="paydemo-type color-change" v-show="appPaywayList.indexOf('ALL_PC') >= 0" @click="changeCurrentWayCode('ALL_PC', 'form')" :class="{this:(currentWayCode === 'ALL_PC')}">
+            <img src="@/assets/payTestImg/wx_native.svg" class="paydemo-type-img"><span class="color-change">欧付宝PC支付</span>
+          </div>
+
           <div class="paydemo-type-name article-title" v-show="showTitle('WX')" >微信支付</div>
           <div class="paydemo-type-body">
 
