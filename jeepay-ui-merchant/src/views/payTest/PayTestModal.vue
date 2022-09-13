@@ -4,8 +4,9 @@
       <div style="width:100%;margin-bottom:20px;text-align:center">
         <img v-if="apiRes.payDataType == 'codeImgUrl'" :src="apiRes.payData" alt="">
         <span v-else-if="apiRes.payDataType == 'payurl'">等待用户支付 <hr> 如浏览器未正确跳转请点击： <a :href="apiRes.payData" target="_blank">支付地址</a><a-button size="small" class="copy-btn" v-clipboard:copy="apiRes.payData" v-clipboard:success="onCopy" >复制链接</a-button></span>
-        <div v-else-if="apiRes.payDataType == 'form'" v-html="apiRes.formContent"></div>
+        <div v-else-if="apiRes.payDataType == 'form'" v-html='apiRes.payData'>准备表单中...</div>
         <span v-else>等待用户支付,请稍后</span>
+        <a-button v-if="apiRes.payDataType == 'form'" @click="goPay" style="padding:5px 20px;background-color: #1953ff;border-radius: 5px;color:#fff">跳转至平台支付</a-button>
       </div>
       <p class="describe">
         <img src="@/assets/payTestImg/wx_app.svg" alt="" v-show="wxApp"><!-- 微信图标 -->
@@ -38,8 +39,14 @@ export default {
       this.$message.success('复制成功')
     },
 
+    goPay () {
+      const formEle = document.getElementById('allPayAPIForm')
+      formEle.submit()
+    },
+
     // 二维码以及条码弹窗
     showModal (wayCode, apiRes) {
+      console.log('apiRes ', apiRes)
       const that = this
       // 关闭上一个webSocket监听
       if (this.payOrderWebSocket) {
